@@ -1,0 +1,63 @@
+@import '../../scss/base.scss';
+
+.button {
+  height: 56px;
+
+  background: $blue;
+  border-radius: 100px;
+
+  display: flex;
+  align-items: center;
+
+  border: none;
+  outline: none;
+
+  font-family: $montserrat;
+  font-style: normal;
+  font-weight: 600;
+  font-size: $button;
+  line-height: 22px;
+  color: $white;
+
+  transition: 0.5s;
+
+  cursor: pointer;
+
+  &:hover {
+    background: $white;
+    color: $blue;
+
+    .button__img {
+      fill: $blue;
+    }
+  }
+
+  &_default {
+    width: 215px;
+    justify-content: center;
+  }
+
+  &_check {
+    width: 140px;
+    justify-content: center;
+  }
+
+  &__img {
+    fill: $white;
+    transition: 0.5s;
+  }
+}
+
+@media (max-width: 1100px) {
+  .button {
+    width: 100%;
+
+    &_check {
+      width: 100%;
+    }
+
+    &__img {
+      display: none;
+    }
+  }
+}
