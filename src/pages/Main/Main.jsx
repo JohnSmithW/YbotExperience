@@ -7,6 +7,8 @@ import Header from '../../components/Header/Header';
 import Theme from '../../components/Theme/Theme';
 import Intro from '../../components/Intro/Intro';
 import UserInfoForm from '../../components/UserInfoForm/UserInfoForm';
+import UserDetailsForm from '../../components/UserDetailsForm/UserDetailsForm';
+import sendUserInfo from '../../actions/sendUserInfo';
 
 // const transitions = useTransition(index, (p) => p, {
 //   from: { opacity: 0, transform: 'translate3d(100%,0,0)' },
@@ -19,9 +21,9 @@ function Main() {
 
   return (
     <>
-      <Theme theme="theme_blue" />
+      <Theme theme={page === 5 ? 'theme_white' : 'theme_blue'} />
       <Container>
-        <Header />
+        <Header isDemo={page === 5} />
         {page === 0 && (
           <Intro
             onClick={() => {
@@ -44,7 +46,7 @@ function Main() {
         {page === 2 && (
           <UserInfoForm
             page="02"
-            text="What is your last name?"
+            text={`Thanks for that, ${state.info.name}. What's your last name?`}
             onClick={(value) => {
               state.info.lastName = value;
               setPage(3);
@@ -58,8 +60,25 @@ function Main() {
             text="What organization are you from?"
             onClick={(value) => {
               state.info.organization = value;
-              setPage(0);
+              sendUserInfo();
+              setPage(4);
             }}
+          />
+        )}
+
+        {page === 4 && (
+          <UserDetailsForm
+            page="04"
+            text="For the full experience, enter your contact details"
+            onClick={(value) => {
+              state.details = value;
+              sendUserInfo();
+              setPage(5);
+            }}
+            countryList={[
+              { id: 0, name: 'USA' },
+              { id: 1, name: 'Australia' },
+            ]}
           />
         )}
       </Container>
