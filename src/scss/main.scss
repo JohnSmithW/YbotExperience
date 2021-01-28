@@ -109,6 +109,10 @@ select:-webkit-autofill:focus {
     margin-left: 10px;
   }
 
+  &__img_demo {
+    margin-left: 10px;
+  }
+
   &-main {
     display: flex;
     justify-content: center;
@@ -146,6 +150,26 @@ select:-webkit-autofill:focus {
         color: $white;
       }
     }
+  }
+}
+
+@keyframes pulse {
+  from {
+    width: 75px;
+    height: 75px;
+    opacity: 1;
+  }
+
+  50% {
+    width: 85px;
+    height: 85px;
+    opacity: 0.5;
+  }
+
+  to {
+    width: 75px;
+    height: 75px;
+    opacity: 1;
   }
 }
 

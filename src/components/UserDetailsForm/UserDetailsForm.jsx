@@ -17,6 +17,7 @@ const theme = createMuiTheme({
 const useStyles = makeStyles(() => ({
   input: { width: window.innerWidth > 1100 ? 720 : '100%', marginTop: 40 },
   resize: { fontSize: window.innerWidth > 1100 ? 32 : 16 },
+  code: { fontSize: window.innerWidth > 1100 ? 32 : 16, padding: window.innerWidth > 1100 ? 'auto' : '7px 0' },
   error: {
     borderBottom: '1px solid #d32f2f',
     '&:before': {
@@ -36,11 +37,11 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function UserDetailsForm({ page, text, countryList, onClick }) {
+export default function UserDetailsForm({ page, text, countryList, onClick, details }) {
   const classes = useStyles();
-  const [search, setSearch] = useState('USA');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [email, setEmail] = useState('');
+  const [search, setSearch] = useState(details.country);
+  const [phoneNumber, setPhoneNumber] = useState(details.phoneNumber);
+  const [email, setEmail] = useState(details.email);
   const [isOpen, setIsOpen] = useState(false);
   const [isValidated, setIsvalidated] = useState({ email: true, all: false });
 
@@ -70,13 +71,13 @@ export default function UserDetailsForm({ page, text, countryList, onClick }) {
               <span className="form-main-wrapper__title">{text}</span>
               <ThemeProvider theme={theme}>
                 <TextField
-                  onChange={() => {
-                    setSearch(search);
-                  }}
+                  // onChange={() => {
+                  //   setSearch(search);
+                  // }}
                   onFocus={() => {
                     setIsOpen(true);
                   }}
-                  value={search}
+                  value={search.name}
                   className={classes.input}
                   id="standard-basic"
                   label="Country"
@@ -97,10 +98,10 @@ export default function UserDetailsForm({ page, text, countryList, onClick }) {
                           alt=""
                         />
                         <div className={isOpen ? 'user-details-list user-details-list_open' : 'user-details-list'}>
-                          {countryList.map(({ id, name }) => (
+                          {countryList.map(({ id, name, code }) => (
                             <div
                               onClick={() => {
-                                setSearch(name);
+                                setSearch({ name, code });
                                 setIsOpen(false);
                               }}
                               onKeyDown={(event) => {
@@ -133,11 +134,12 @@ export default function UserDetailsForm({ page, text, countryList, onClick }) {
                   id="standard-basic"
                   label="Your phone number"
                   type="tel"
-                  placeholder="0035542278416"
+                  placeholder="0542278416"
                   InputProps={{
                     classes: {
                       input: classes.resize,
                     },
+                    startAdornment: <span className={classes.code}>{search.code}</span>,
                   }}
                 />
               </ThemeProvider>
@@ -177,7 +179,12 @@ export default function UserDetailsForm({ page, text, countryList, onClick }) {
                   mod="button_check"
                   onClick={() => {
                     if (isValidated.all) {
-                      onClick({ search, phoneNumber, email });
+                      onClick({
+                        country: search.name,
+                        phoneNumber: search.code + phoneNumber,
+                        email,
+                        code: search.code,
+                      });
                     }
                   }}
                 >
@@ -214,6 +221,7 @@ export default function UserDetailsForm({ page, text, countryList, onClick }) {
 UserDetailsForm.defaultProps = {
   page: '04',
   text: 'For the full experience, enter your contact details',
+  details: { country: 'USA', phoneNumber: '', email: '' },
 };
 
 UserDetailsForm.propTypes = {
@@ -221,4 +229,5 @@ UserDetailsForm.propTypes = {
   text: PropTypes.string,
   countryList: PropTypes.instanceOf(Array).isRequired,
   onClick: PropTypes.func.isRequired,
+  details: PropTypes.instanceOf(Object),
 };

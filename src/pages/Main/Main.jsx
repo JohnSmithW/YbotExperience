@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { view } from '@risingstack/react-easy-state';
 import state from '../../store';
-// import { useTransition} from 'react-spring';
 import Container from '../../components/Container/Container';
 import Header from '../../components/Header/Header';
 import Theme from '../../components/Theme/Theme';
@@ -9,21 +8,19 @@ import Intro from '../../components/Intro/Intro';
 import UserInfoForm from '../../components/UserInfoForm/UserInfoForm';
 import UserDetailsForm from '../../components/UserDetailsForm/UserDetailsForm';
 import sendUserInfo from '../../actions/sendUserInfo';
-
-// const transitions = useTransition(index, (p) => p, {
-//   from: { opacity: 0, transform: 'translate3d(100%,0,0)' },
-//   enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
-//   leave: { opacity: 0, transform: 'translate3d(-50%,0,0)' },
-// });
+import Demo from '../../components/Demo/Demo';
+import Dialpad from '../../components/Dialpad/Dialpad';
+import openTutorial, { muteTutorial, playTutorial, replayTutorial, startTutorial } from '../../actions/tutorial';
+import Tutorial from '../../components/Tutorial/Tutorial';
 
 function Main() {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(5);
 
   return (
     <>
       <Theme theme={page === 5 ? 'theme_white' : 'theme_blue'} />
       <Container>
-        <Header isDemo={page === 5} />
+        <Header isDemo={page === 5} onClick={replayTutorial} onMute={muteTutorial} />
         {page === 0 && (
           <Intro
             onClick={() => {
@@ -76,12 +73,80 @@ function Main() {
               setPage(5);
             }}
             countryList={[
-              { id: 0, name: 'USA' },
-              { id: 1, name: 'Australia' },
+              { id: 0, name: 'United States of America', code: '+1' },
+              { id: 1, name: 'Australia', code: '+61' },
+              { id: 2, name: 'Hong Kong', code: '+852' },
+              { id: 3, name: 'United Kingdom', code: '+44' },
+              { id: 4, name: 'Other', code: '' },
             ]}
+            details={state.details}
           />
         )}
+
+        {page === 5 && !state.tutorial.isOpen && (
+          <Demo
+            onClick={(option) => {
+              if (typeof option === 'number' && option !== 9) {
+                state.option = option;
+              }
+            }}
+            onRestart={() => {
+              state.details = { country: 'USA', phoneNumber: '', email: '' };
+              setPage(0);
+            }}
+            onCheckDetails={() => {
+              console.log(state.details);
+              setPage(4);
+            }}
+            optionsList={state.optionsList}
+            playTutorial={() => {
+              playTutorial();
+              startTutorial();
+            }}
+            replayTutorial={replayTutorial}
+            chosenOption={state.option}
+            restart={startTutorial}
+          >
+            {
+              /*eslint-disable */
+
+              state.tutorial.tips.map(
+                ({ number, text }) => state.option === number && <Tutorial key={number} number={number} text={text} />,
+              )
+
+              /* eslint-enable */
+            }
+            {state.option === null && <Tutorial number={1} text="Service" />}
+          </Demo>
+        )}
+
+        {
+          /*eslint-disable */
+          state.tutorial.isOpen &&
+            state.tutorial.tips.map(
+              ({ number, text }) => state.option === number && <Tutorial key={number} number={number} text={text} />,
+            )
+
+          /* eslint-enable */
+        }
       </Container>
+      {page === 5 && (
+        <Dialpad
+          optionsList={state.optionsList}
+          onClick={() => {
+            openTutorial();
+            playTutorial();
+            startTutorial();
+          }}
+          onOptionClick={(option) => {
+            if (typeof option === 'number' && option !== 9) {
+              state.option = option;
+            }
+          }}
+          isOpen={state.tutorial.isOpen}
+          chosenOption={state.option}
+        />
+      )}
     </>
   );
 }

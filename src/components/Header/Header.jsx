@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 import './Header.scss';
 import Button from '../Button/Button';
 
-export default function Header({ isDemo }) {
+export default function Header({ isDemo, onClick, onMute }) {
   return (
     <header className={isDemo ? 'header header_demo' : 'header'}>
       <img src={isDemo ? '/images/logos/blue.svg' : '/images/logos/white.svg'} alt="" />
@@ -11,10 +11,10 @@ export default function Header({ isDemo }) {
       {isDemo && (
         /* eslint-disable */
         <div className="header-wrapper">
-          <Button mod="button_demo" onClick={() => {}}>
+          <Button mod="button_demo" onClick={onClick}>
             {window.innerWidth > 1100 ? 'Replay IVR guidance' : 'Replay'}
           </Button>
-          <div className="header-wrapper-sound">
+          <div onClick={onMute} className="header-wrapper-sound">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 className="header-wrapper-sound__img"
@@ -33,8 +33,12 @@ export default function Header({ isDemo }) {
 
 Header.defaultProps = {
   isDemo: false,
+  onClick: () => {},
+  onMute: () => {},
 };
 
 Header.propTypes = {
   isDemo: PropTypes.bool,
+  onClick: PropTypes.func,
+  onMute: PropTypes.func,
 };

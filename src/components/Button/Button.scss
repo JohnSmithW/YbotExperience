@@ -30,6 +30,10 @@
     .button__img {
       fill: $blue;
     }
+
+    .button__img_demo {
+      fill: $blue;
+    }
   }
 
   &_default {
@@ -62,7 +66,18 @@
     }
   }
 
+  &_restart {
+    margin: 10px 0;
+    width: 200px;
+    justify-content: center;
+  }
+
   &__img {
+    fill: $white;
+    transition: 0.5s;
+  }
+
+  &__img_demo {
     fill: $white;
     transition: 0.5s;
   }
