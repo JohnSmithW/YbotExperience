@@ -158,7 +158,7 @@ export default function UserDetailsForm({ page, text, countryList, onClick, deta
                   id="standard-basic"
                   label="Email adress"
                   type="email"
-                  placeholder="tanetsdmitriy@gmail.com"
+                  placeholder="yourmail@gmail.com"
                   InputProps={{
                     classes: {
                       input: classes.resize,

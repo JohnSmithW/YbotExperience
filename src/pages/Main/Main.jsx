@@ -14,7 +14,7 @@ import openTutorial, { muteTutorial, playTutorial, replayTutorial, startTutorial
 import Tutorial from '../../components/Tutorial/Tutorial';
 
 function Main() {
-  const [page, setPage] = useState(5);
+  const [page, setPage] = useState(0);
 
   return (
     <>
