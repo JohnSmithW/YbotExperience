@@ -19,7 +19,9 @@
       font-size: $heading;
       line-height: 32px;
 
-      color: #121619;
+      // color: #121619;
+
+      color: $blue;
     }
 
     &__text {

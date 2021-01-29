@@ -71,6 +71,7 @@ function Main() {
               state.details = value;
               sendUserInfo();
               setPage(5);
+              console.log(state.details);
             }}
             countryList={[
               { id: 0, name: 'United States of America', code: '+1' },
@@ -85,13 +86,18 @@ function Main() {
 
         {page === 5 && !state.tutorial.isOpen && (
           <Demo
-            onClick={(option) => {
+            onClick={() => {
+              // if (typeof option === 'number' && option !== 9) {
+              //   state.option = option;
+              // }
+            }}
+            onMouseMove={(option) => {
               if (typeof option === 'number' && option !== 9) {
                 state.option = option;
               }
             }}
             onRestart={() => {
-              state.details = { country: 'USA', phoneNumber: '', email: '' };
+              state.details = { country: { name: 'United States of America', code: '+1' }, phoneNumber: '', email: '' };
               setPage(0);
             }}
             onCheckDetails={() => {

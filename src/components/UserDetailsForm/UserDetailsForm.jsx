@@ -18,6 +18,11 @@ const useStyles = makeStyles(() => ({
   input: { width: window.innerWidth > 1100 ? 720 : '100%', marginTop: 40 },
   resize: { fontSize: window.innerWidth > 1100 ? 32 : 16 },
   code: { fontSize: window.innerWidth > 1100 ? 32 : 16, padding: window.innerWidth > 1100 ? 'auto' : '7px 0' },
+  country: {
+    fontSize: window.innerWidth > 1100 ? 32 : 16,
+    padding: window.innerWidth > 1100 ? 'auto' : '7px 0',
+    width: '100%',
+  },
   error: {
     borderBottom: '1px solid #d32f2f',
     '&:before': {
@@ -77,7 +82,7 @@ export default function UserDetailsForm({ page, text, countryList, onClick, deta
                   onFocus={() => {
                     setIsOpen(true);
                   }}
-                  value={search.name}
+                  // value={search.name}
                   className={classes.input}
                   id="standard-basic"
                   label="Country"
@@ -89,6 +94,7 @@ export default function UserDetailsForm({ page, text, countryList, onClick, deta
                     startAdornment: (
                       /* eslint-disable */
                       <>
+                        <span className={classes.country}>{search.name}</span>
                         <img
                           onClick={() => {
                             setIsOpen(!isOpen);
@@ -102,6 +108,7 @@ export default function UserDetailsForm({ page, text, countryList, onClick, deta
                             <div
                               onClick={() => {
                                 setSearch({ name, code });
+                                console.log(search);
                                 setIsOpen(false);
                               }}
                               onKeyDown={(event) => {
@@ -221,7 +228,7 @@ export default function UserDetailsForm({ page, text, countryList, onClick, deta
 UserDetailsForm.defaultProps = {
   page: '04',
   text: 'For the full experience, enter your contact details',
-  details: { country: 'USA', phoneNumber: '', email: '' },
+  details: { country: { name: 'United States of America', code: '+1' }, phoneNumber: '', email: '' },
 };
 
 UserDetailsForm.propTypes = {

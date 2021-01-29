@@ -6,6 +6,7 @@ import Button from '../Button/Button';
 
 export default function Demo({
   onClick,
+  onMouseMove,
   optionsList,
   onRestart,
   onCheckDetails,
@@ -94,6 +95,9 @@ export default function Demo({
                           onClick={() => {
                             onClick(option);
                           }}
+                          onMouseMove={() => {
+                            onMouseMove(option);
+                          }}
                           className={
                             chosenOption === option
                               ? 'demo-dialpad-wrapper__item demo-dialpad-wrapper__item_active'
@@ -122,6 +126,7 @@ Demo.defaultProps = {
 
 Demo.propTypes = {
   onClick: PropTypes.func.isRequired,
+  onMouseMove: PropTypes.func.isRequired,
   onRestart: PropTypes.func.isRequired,
   onCheckDetails: PropTypes.func.isRequired,
 

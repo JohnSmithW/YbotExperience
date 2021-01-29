@@ -25,6 +25,16 @@ export default function openTutorial() {
   state.tutorial.isOpen = !state.tutorial.isOpen;
 }
 
+export function repeatTutorial() {
+  setInterval(() => {
+    if (state.option < 8) {
+      state.option += 1;
+    } else {
+      state.option = 0;
+    }
+  }, 5000);
+}
+
 export function startTutorial() {
   state.option = 1;
   setTimeout(() => {}, 38000);
@@ -63,5 +73,6 @@ export function startTutorial() {
 
   setTimeout(() => {
     state.option = 1;
+    repeatTutorial();
   }, 80000);
 }
