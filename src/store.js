@@ -2,7 +2,17 @@ import { store } from '@risingstack/react-easy-state';
 
 const state = store({
   info: { name: null, lastName: null, organization: null },
-  details: { country: { name: 'United States of America', code: '+1' }, phoneNumber: '', email: '', code: '' },
+  details: { country: { id: 0, name: 'United States of America', code: '+1' }, phoneNumber: '', email: '' },
+  countryList: {
+    selected: { id: 0, name: 'United States of America', code: '+1' },
+    list: [
+      { id: 0, name: 'United States of America', code: '+1' },
+      { id: 1, name: 'Australia', code: '+61' },
+      { id: 2, name: 'Hong Kong', code: '+852' },
+      { id: 3, name: 'United Kingdom', code: '+44' },
+      { id: 4, name: 'Other', code: '' },
+    ],
+  },
   isScrolled: false,
   tutorial: {
     isOpen: false,

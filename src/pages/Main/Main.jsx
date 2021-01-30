@@ -76,17 +76,11 @@ function Main() {
             text="For the full experience, enter your contact details"
             onClick={(value) => {
               state.details = value;
+              state.countryList.selected = value.country;
               sendUserInfo();
               setPage(5);
-              console.log(state.details);
             }}
-            countryList={[
-              { id: 0, name: 'United States of America', code: '+1' },
-              { id: 1, name: 'Australia', code: '+61' },
-              { id: 2, name: 'Hong Kong', code: '+852' },
-              { id: 3, name: 'United Kingdom', code: '+44' },
-              { id: 4, name: 'Other', code: '' },
-            ]}
+            countryList={state.countryList}
             details={state.details}
             isEdit={state.isEdit}
           />
@@ -109,12 +103,10 @@ function Main() {
               state.isHovered = false;
             }}
             onRestart={() => {
-              state.details = { country: { name: 'United States of America', code: '+1' }, phoneNumber: '', email: '' };
-              state.isEdit = true;
               setPage(0);
             }}
             onCheckDetails={() => {
-              console.log(state.details);
+              state.isEdit = true;
               setPage(4);
             }}
             optionsList={state.optionsList}

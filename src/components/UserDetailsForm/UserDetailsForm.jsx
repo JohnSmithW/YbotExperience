@@ -44,7 +44,7 @@ const useStyles = makeStyles(() => ({
 
 export default function UserDetailsForm({ page, text, countryList, onClick, details, isEdit }) {
   const classes = useStyles();
-  const [search, setSearch] = useState(details.country);
+  const [list, setList] = useState({ selected: countryList.selected, list: countryList.list });
   const [phoneNumber, setPhoneNumber] = useState(details.phoneNumber);
   const [email, setEmail] = useState(details.email);
   const [isOpen, setIsOpen] = useState(false);
@@ -66,23 +66,20 @@ export default function UserDetailsForm({ page, text, countryList, onClick, deta
             event.stopPropagation();
             onClick();
           }}
-          className="form"
+          className="form form_details"
           style={{ transform: `translateX(${x}px)`, opacity }}
         >
           <div className="form-main">
             <div className="form-main__page">{page}</div>
 
-            <div className="form-main-wrapper">
+            <div className="form-main-wrapper form-main-wrapper_details">
               <span className="form-main-wrapper__title">{text}</span>
               <ThemeProvider theme={theme}>
                 <TextField
-                  // onChange={() => {
-                  //   setSearch(search);
-                  // }}
                   onFocus={() => {
                     setIsOpen(true);
                   }}
-                  value={search.name}
+                  value={list.selected.name}
                   className={classes.input}
                   id="standard-basic"
                   label="Country"
@@ -103,11 +100,11 @@ export default function UserDetailsForm({ page, text, countryList, onClick, deta
                           alt=""
                         />
                         <div className={isOpen ? 'user-details-list user-details-list_open' : 'user-details-list'}>
-                          {countryList.map(({ id, name, code }) => (
+                          {list.list.map(({ id, name, code }) => (
                             <div
                               onClick={() => {
-                                setSearch({ name, code });
-                                console.log(search);
+                                setList({ ...list, selected: { id, name, code } });
+
                                 setIsOpen(false);
                               }}
                               onKeyDown={(event) => {
@@ -145,7 +142,7 @@ export default function UserDetailsForm({ page, text, countryList, onClick, deta
                     classes: {
                       input: classes.resize,
                     },
-                    startAdornment: <span className={classes.code}>{search.code}</span>,
+                    startAdornment: <span className={classes.code}>{list.selected.code}</span>,
                   }}
                 />
               </ThemeProvider>
@@ -157,12 +154,11 @@ export default function UserDetailsForm({ page, text, countryList, onClick, deta
                     validateEmail(email);
                   }}
                   onKeyDown={(event) => {
-                    if (event.keyCode === 13 && search !== '' && phoneNumber !== '' && email !== '') {
+                    if (event.keyCode === 13 && list.selected.name !== '' && phoneNumber !== '' && email !== '') {
                       onClick({
-                        country: search.name,
-                        phoneNumber: search.code + phoneNumber,
+                        country: { id: list.selected.id, name: list.selected.name, code: list.selected.code },
+                        phoneNumber,
                         email,
-                        code: search.code,
                       });
                     }
                   }}
@@ -186,7 +182,7 @@ export default function UserDetailsForm({ page, text, countryList, onClick, deta
 
               <div
                 className={
-                  search !== '' && phoneNumber !== '' && email !== ''
+                  list.selected.name !== '' && phoneNumber !== '' && email !== ''
                     ? 'button-container button-container_open'
                     : 'button-container'
                 }
@@ -196,10 +192,9 @@ export default function UserDetailsForm({ page, text, countryList, onClick, deta
                   onClick={() => {
                     if (isValidated.all || isEdit) {
                       onClick({
-                        country: search.name,
-                        phoneNumber: search.code + phoneNumber,
+                        country: { id: list.selected.id, name: list.selected.name, code: list.selected.code },
+                        phoneNumber,
                         email,
-                        code: search.code,
                       });
                     }
                   }}
@@ -243,7 +238,7 @@ UserDetailsForm.defaultProps = {
 UserDetailsForm.propTypes = {
   page: PropTypes.string,
   text: PropTypes.string,
-  countryList: PropTypes.instanceOf(Array).isRequired,
+  countryList: PropTypes.instanceOf(Object).isRequired,
   onClick: PropTypes.func.isRequired,
   details: PropTypes.instanceOf(Object),
   isEdit: PropTypes.bool.isRequired,
