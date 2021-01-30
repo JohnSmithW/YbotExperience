@@ -17,7 +17,7 @@ import PopUp from '../../components/PopUp/PopUp';
 import closePopUp from '../../actions/popUp';
 
 function Main() {
-  const [page, setPage] = useState(5);
+  const [page, setPage] = useState(0);
 
   return (
     <>

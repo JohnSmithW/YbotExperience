@@ -4,7 +4,7 @@
   width: 100%;
   height: 330px;
 
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -101,11 +101,13 @@
 
     &_open {
       height: 60vh;
+      .dialpad {
+        display: flex;
+      }
     }
   }
 
   &-header {
-    margin-top: 20px;
     width: 100%;
     height: 70px;
     display: flex;
