@@ -42,7 +42,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function UserDetailsForm({ page, text, countryList, onClick, details }) {
+export default function UserDetailsForm({ page, text, countryList, onClick, details, isEdit }) {
   const classes = useStyles();
   const [search, setSearch] = useState(details.country);
   const [phoneNumber, setPhoneNumber] = useState(details.phoneNumber);
@@ -82,7 +82,7 @@ export default function UserDetailsForm({ page, text, countryList, onClick, deta
                   onFocus={() => {
                     setIsOpen(true);
                   }}
-                  // value={search.name}
+                  value={search.name}
                   className={classes.input}
                   id="standard-basic"
                   label="Country"
@@ -94,7 +94,6 @@ export default function UserDetailsForm({ page, text, countryList, onClick, deta
                     startAdornment: (
                       /* eslint-disable */
                       <>
-                        <span className={classes.country}>{search.name}</span>
                         <img
                           onClick={() => {
                             setIsOpen(!isOpen);
@@ -154,8 +153,18 @@ export default function UserDetailsForm({ page, text, countryList, onClick, deta
               <ThemeProvider theme={theme}>
                 <TextField
                   onChange={(event) => {
-                    letterUpperCase(event.target.value, setEmail);
+                    setEmail(event.target.value);
                     validateEmail(email);
+                  }}
+                  onKeyDown={(event) => {
+                    if (event.keyCode === 13 && search !== '' && phoneNumber !== '' && email !== '') {
+                      onClick({
+                        country: search.name,
+                        phoneNumber: search.code + phoneNumber,
+                        email,
+                        code: search.code,
+                      });
+                    }
                   }}
                   onFocus={() => {
                     setIsOpen(false);
@@ -185,7 +194,7 @@ export default function UserDetailsForm({ page, text, countryList, onClick, deta
                 <Button
                   mod="button_check"
                   onClick={() => {
-                    if (isValidated.all) {
+                    if (isValidated.all || isEdit) {
                       onClick({
                         country: search.name,
                         phoneNumber: search.code + phoneNumber,
@@ -237,4 +246,5 @@ UserDetailsForm.propTypes = {
   countryList: PropTypes.instanceOf(Array).isRequired,
   onClick: PropTypes.func.isRequired,
   details: PropTypes.instanceOf(Object),
+  isEdit: PropTypes.bool.isRequired,
 };

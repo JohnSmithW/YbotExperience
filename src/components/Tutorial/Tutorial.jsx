@@ -3,12 +3,12 @@ import { PropTypes } from 'prop-types';
 import { Spring } from 'react-spring/renderprops';
 import './Tutorial.scss';
 
-export default function Tutorial({ number, text }) {
+export default function Tutorial({ number, text, mod }) {
   return (
     /* eslint-disable */
     <Spring from={{ x: 100, opacity: 0 }} to={{ x: 0, opacity: 1 }}>
       {({ x, opacity }) => (
-        <div style={{ transform: `translateX(${x}px)`, opacity }} className="tutorial-description">
+        <div style={{ transform: `translateX(${x}px)`, opacity }} className={`tutorial-description ${mod}`}>
           <span className="tutorial-description__option">Press {number}</span>
           <span className="tutorial-description__text">to experience {text} organization demonstration</span>
         </div>
@@ -21,9 +21,11 @@ export default function Tutorial({ number, text }) {
 Tutorial.defaultProps = {
   number: 1,
   text: 'Service',
+  mod: '',
 };
 
 Tutorial.propTypes = {
   number: PropTypes.number,
   text: PropTypes.string,
+  mod: PropTypes.string,
 };

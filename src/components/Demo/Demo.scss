@@ -49,8 +49,9 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: flex-start;
+    position: relative;
   }
 
   &-description {
@@ -92,6 +93,7 @@
     background-image: url('./images/frame.svg');
     background-repeat: no-repeat;
     background-size: contain;
+    background-position: center;
     object-fit: contain;
 
     &-container {
@@ -167,9 +169,11 @@
           }
         }
 
-        &:hover {
-          color: $blue;
-          background: rgba(15, 98, 254, 0.2);
+        &_selected {
+          &:hover {
+            color: $blue;
+            background: rgba(15, 98, 254, 0.2);
+          }
         }
       }
     }

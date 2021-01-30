@@ -43,7 +43,7 @@ export default function Intro({ onClick }) {
             <img src="/images/icons/firstPage/messages.svg" alt="" />
           </div>
           <p className="intro-container__text intro-container__text_margin">
-            Composes a series of personalized SMS populated with object data pulled from your ERP and CRM.
+            Composing a series of personalized SMS populated with object data pulled from your ERP and CRM.
           </p>
         </div>
 

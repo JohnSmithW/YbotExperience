@@ -21,6 +21,10 @@ const state = store({
     isTutorial: false,
   },
   option: 1,
+  isEdit: false,
+  isHovered: false,
+  popUp: { isOpen: false, text: '', type: false },
+  smsSent: false,
   optionsList: [
     {
       id: 0,

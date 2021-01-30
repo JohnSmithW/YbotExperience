@@ -12,13 +12,20 @@ import Demo from '../../components/Demo/Demo';
 import Dialpad from '../../components/Dialpad/Dialpad';
 import openTutorial, { muteTutorial, playTutorial, replayTutorial, startTutorial } from '../../actions/tutorial';
 import Tutorial from '../../components/Tutorial/Tutorial';
+import startSMS from '../../actions/startSMS';
+import PopUp from '../../components/PopUp/PopUp';
+import closePopUp from '../../actions/popUp';
 
 function Main() {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(5);
 
   return (
     <>
       <Theme theme={page === 5 ? 'theme_white' : 'theme_blue'} />
+
+      {state.popUp.isOpen && (
+        <PopUp isOpen={state.popUp.isOpen} text={state.popUp.text} type={state.popUp.type} handleClose={closePopUp} />
+      )}
       <Container>
         <Header isDemo={page === 5} onClick={replayTutorial} onMute={muteTutorial} />
         {page === 0 && (
@@ -81,23 +88,29 @@ function Main() {
               { id: 4, name: 'Other', code: '' },
             ]}
             details={state.details}
+            isEdit={state.isEdit}
           />
         )}
 
         {page === 5 && !state.tutorial.isOpen && (
           <Demo
-            onClick={() => {
-              // if (typeof option === 'number' && option !== 9) {
-              //   state.option = option;
-              // }
+            onClick={(option) => {
+              if (typeof option === 'number' && option !== 9) {
+                startSMS(option);
+              }
             }}
             onMouseMove={(option) => {
+              state.isHovered = true;
               if (typeof option === 'number' && option !== 9) {
                 state.option = option;
               }
             }}
+            onMouseOut={() => {
+              state.isHovered = false;
+            }}
             onRestart={() => {
               state.details = { country: { name: 'United States of America', code: '+1' }, phoneNumber: '', email: '' };
+              state.isEdit = true;
               setPage(0);
             }}
             onCheckDetails={() => {
@@ -112,13 +125,17 @@ function Main() {
             replayTutorial={replayTutorial}
             chosenOption={state.option}
             restart={startTutorial}
+            isHovered={state.isHovered}
           >
             {
               /*eslint-disable */
-
-              state.tutorial.tips.map(
-                ({ number, text }) => state.option === number && <Tutorial key={number} number={number} text={text} />,
-              )
+              state.isHovered &&
+                state.tutorial.tips.map(
+                  ({ number, text }) =>
+                    state.option === number && (
+                      <Tutorial key={number} number={number} text={text} mod="tutorial-description_top" />
+                    ),
+                )
 
               /* eslint-enable */
             }
@@ -128,7 +145,8 @@ function Main() {
 
         {
           /*eslint-disable */
-          state.tutorial.isOpen &&
+          state.isHovered &&
+            state.tutorial.isOpen &&
             state.tutorial.tips.map(
               ({ number, text }) => state.option === number && <Tutorial key={number} number={number} text={text} />,
             )
@@ -146,11 +164,12 @@ function Main() {
           }}
           onOptionClick={(option) => {
             if (typeof option === 'number' && option !== 9) {
-              state.option = option;
+              startSMS(option);
             }
           }}
           isOpen={state.tutorial.isOpen}
           chosenOption={state.option}
+          isHovered={state.isHovered}
         />
       )}
     </>

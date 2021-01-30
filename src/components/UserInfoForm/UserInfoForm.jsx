@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
 import { Spring } from 'react-spring/renderprops';
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -21,6 +21,11 @@ const useStyles = makeStyles(() => ({
 export default function UserInfoForm({ page, text, onClick }) {
   const classes = useStyles();
   const [value, setValue] = useState('');
+  const inputRef = useRef();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   return (
     /*eslint-disable */
@@ -41,6 +46,7 @@ export default function UserInfoForm({ page, text, onClick }) {
               <span className="form-main-wrapper__title">{text}</span>
               <ThemeProvider theme={theme}>
                 <TextField
+                  inputRef={inputRef}
                   InputProps={{
                     classes: {
                       input: classes.resize,

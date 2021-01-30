@@ -7,6 +7,7 @@ import Button from '../Button/Button';
 export default function Demo({
   onClick,
   onMouseMove,
+  onMouseOut,
   optionsList,
   onRestart,
   onCheckDetails,
@@ -15,6 +16,7 @@ export default function Demo({
   children,
   chosenOption,
   restart,
+  isHovered,
 }) {
   useEffect(() => {
     playTutorial();
@@ -98,9 +100,12 @@ export default function Demo({
                           onMouseMove={() => {
                             onMouseMove(option);
                           }}
+                          onMouseOut={() => {
+                            onMouseOut();
+                          }}
                           className={
-                            chosenOption === option
-                              ? 'demo-dialpad-wrapper__item demo-dialpad-wrapper__item_active'
+                            isHovered && chosenOption === option && typeof option === 'number'
+                              ? 'demo-dialpad-wrapper__item demo-dialpad-wrapper__item_selected demo-dialpad-wrapper__item_active'
                               : 'demo-dialpad-wrapper__item'
                           }
                         >
@@ -127,6 +132,7 @@ Demo.defaultProps = {
 Demo.propTypes = {
   onClick: PropTypes.func.isRequired,
   onMouseMove: PropTypes.func.isRequired,
+  onMouseOut: PropTypes.func.isRequired,
   onRestart: PropTypes.func.isRequired,
   onCheckDetails: PropTypes.func.isRequired,
 
@@ -138,4 +144,5 @@ Demo.propTypes = {
   children: PropTypes.instanceOf(Array).isRequired,
 
   chosenOption: PropTypes.number,
+  isHovered: PropTypes.bool.isRequired,
 };

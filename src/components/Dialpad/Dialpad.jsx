@@ -4,7 +4,7 @@ import './Dialpad.scss';
 
 /* eslint-disable */
 
-export default function Dialpad({ optionsList, onClick, onOptionClick, isOpen, chosenOption }) {
+export default function Dialpad({ optionsList, onClick, onOptionClick, isOpen, chosenOption, isHovered }) {
   return (
     <div className={isOpen ? 'dialpad-mobile dialpad-mobile_open' : 'dialpad-mobile'}>
       <div onClick={onClick} className="dialpad-header">
@@ -32,7 +32,7 @@ export default function Dialpad({ optionsList, onClick, onOptionClick, isOpen, c
                     onOptionClick(option);
                   }}
                   className={
-                    isOpen && chosenOption === option
+                    isHovered && isOpen && chosenOption === option
                       ? 'dialpad-wrapper__item dialpad-wrapper__item_active'
                       : 'dialpad-wrapper__item'
                   }
@@ -55,4 +55,5 @@ Dialpad.propTypes = {
   onClick: PropTypes.func.isRequired,
   onOptionClick: PropTypes.func.isRequired,
   chosenOption: PropTypes.number.isRequired,
+  isHovered: PropTypes.bool.isRequired,
 };

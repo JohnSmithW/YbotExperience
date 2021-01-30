@@ -9,6 +9,7 @@ export function playTutorial() {
 }
 
 export function replayTutorial() {
+  tutorial.volume = 1;
   tutorial.play();
   tutorial.currentTime = 0;
 }
@@ -28,6 +29,7 @@ export default function openTutorial() {
 export function repeatTutorial() {
   setInterval(() => {
     if (state.option < 8) {
+      state.isHovered = true;
       state.option += 1;
     } else {
       state.option = 0;
@@ -36,38 +38,48 @@ export function repeatTutorial() {
 }
 
 export function startTutorial() {
-  state.option = 1;
-  setTimeout(() => {}, 38000);
+  setTimeout(() => {
+    state.isHovered = true;
+    state.option = 1;
+  }, 38000);
 
   setTimeout(() => {
+    state.isHovered = true;
     state.option = 2;
   }, 44000);
 
   setTimeout(() => {
+    state.isHovered = true;
     state.option = 3;
   }, 48000);
 
   setTimeout(() => {
+    state.isHovered = true;
     state.option = 4;
   }, 51000);
 
   setTimeout(() => {
+    state.isHovered = true;
     state.option = 5;
   }, 57000);
 
   setTimeout(() => {
+    state.isHovered = true;
     state.option = 6;
   }, 62000);
 
   setTimeout(() => {
+    state.isHovered = true;
     state.option = 7;
   }, 65000);
 
   setTimeout(() => {
+    state.isHovered = true;
     state.option = 8;
   }, 72000);
 
   setTimeout(() => {
+    state.isHovered = true;
     state.option = 0;
   }, 75000);
 
