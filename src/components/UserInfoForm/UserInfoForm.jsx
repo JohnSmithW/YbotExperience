@@ -15,7 +15,10 @@ const theme = createMuiTheme({
 
 const useStyles = makeStyles(() => ({
   input: { width: window.innerWidth > 1100 ? 720 : '100%', marginTop: 40 },
-  resize: { fontSize: window.innerWidth > 1100 ? 32 : 16 },
+  resize: {
+    fontSize: window.innerWidth > 1100 ? 32 : 16,
+    padding: window.innerWidth > 1100 ? '6px 0 0.7px' : '0.6vmax 0 0.7vmax',
+  },
 }));
 
 export default function UserInfoForm({ page, text, onClick }) {
