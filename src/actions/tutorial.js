@@ -26,7 +26,7 @@ export default function openTutorial() {
   state.tutorial.isOpen = !state.tutorial.isOpen;
 }
 
-export function repeatTutorial() {
+export const repeatTutorial = () => {
   setInterval(() => {
     if (state.option < 8) {
       state.isHovered = true;
@@ -35,7 +35,7 @@ export function repeatTutorial() {
       state.option = 0;
     }
   }, 5000);
-}
+};
 
 export function startTutorial() {
   setTimeout(() => {

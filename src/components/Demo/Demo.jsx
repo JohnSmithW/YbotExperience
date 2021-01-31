@@ -114,6 +114,9 @@ export default function Demo({
                       ))}
                     </div>
                   ))}
+                  <span className="demo-dialpad-container__description">
+                    *Standard carrier rates may apply when sending SMS
+                  </span>
                 </div>
               </div>
             </div>

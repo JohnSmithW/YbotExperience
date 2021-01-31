@@ -6,9 +6,10 @@ export default async function startSMS() {
   if (!state.smsSent) {
     await sendRequest('/sendSms', 'POST', {
       name: state.info.name,
+      surname: state.info.lastName,
+      email: state.details.email,
       org: state.info.org,
       phone: state.details.country.code + state.details.phoneNumber,
-      surname: state.info.lastName,
       code: state.details.country.code,
       country: state.details.country.name,
       type: state.option,
