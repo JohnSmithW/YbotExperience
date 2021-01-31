@@ -19,6 +19,7 @@ export default function Demo({
   isHovered,
 }) {
   useEffect(() => {
+    document.documentElement.scrollTop = 0;
     playTutorial();
   }, []);
 

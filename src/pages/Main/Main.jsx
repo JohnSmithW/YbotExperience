@@ -10,14 +10,20 @@ import UserDetailsForm from '../../components/UserDetailsForm/UserDetailsForm';
 import sendUserInfo from '../../actions/sendUserInfo';
 import Demo from '../../components/Demo/Demo';
 import Dialpad from '../../components/Dialpad/Dialpad';
-import openTutorial, { muteTutorial, playTutorial, replayTutorial, startTutorial } from '../../actions/tutorial';
+import openTutorial, {
+  muteTutorial,
+  playTutorial,
+  repeatTutorial,
+  replayTutorial,
+  // startTutorial,
+} from '../../actions/tutorial';
 import Tutorial from '../../components/Tutorial/Tutorial';
 import startSMS from '../../actions/startSMS';
 import PopUp from '../../components/PopUp/PopUp';
 import closePopUp from '../../actions/popUp';
 
 function Main() {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(5);
 
   return (
     <>
@@ -90,6 +96,7 @@ function Main() {
           <Demo
             onClick={(option) => {
               if (typeof option === 'number' && option !== 9) {
+                console.log(option);
                 startSMS(option);
               }
             }}
@@ -112,11 +119,11 @@ function Main() {
             optionsList={state.optionsList}
             playTutorial={() => {
               playTutorial();
-              startTutorial();
+              repeatTutorial();
             }}
             replayTutorial={replayTutorial}
             chosenOption={state.option}
-            restart={startTutorial}
+            restart={repeatTutorial}
             isHovered={state.isHovered}
           >
             {
@@ -152,7 +159,7 @@ function Main() {
           onClick={() => {
             openTutorial();
             playTutorial();
-            startTutorial();
+            repeatTutorial();
           }}
           onOptionClick={(option) => {
             if (typeof option === 'number' && option !== 9) {
