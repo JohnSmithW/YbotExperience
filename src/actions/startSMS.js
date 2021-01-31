@@ -8,7 +8,7 @@ export default async function startSMS() {
       name: state.info.name,
       surname: state.info.lastName,
       email: state.details.email,
-      org: state.info.org,
+      org: state.info.organization,
       phone: state.details.country.code + state.details.phoneNumber,
       code: state.details.country.code,
       country: state.details.country.name,
