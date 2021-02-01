@@ -10,7 +10,11 @@ export default function Tutorial({ number, text, mod }) {
       {({ x, opacity }) => (
         <div style={{ transform: `translateX(${x}px)`, opacity }} className={`tutorial-description ${mod}`}>
           <span className="tutorial-description__option">Press {number}</span>
-          <span className="tutorial-description__text">to experience {text} organization demonstration</span>
+          <span className="tutorial-description__text">
+            {number !== 0
+              ? `to experience ${text} organization demonstration`
+              : 'to discover if ybot is suitable for your organization'}
+          </span>
         </div>
       )}
     </Spring>

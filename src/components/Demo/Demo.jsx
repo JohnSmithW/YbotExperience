@@ -15,7 +15,6 @@ export default function Demo({
   replayTutorial,
   children,
   chosenOption,
-  restart,
   isHovered,
 }) {
   useEffect(() => {
@@ -37,10 +36,7 @@ export default function Demo({
               <a onClick={replayTutorial} href="#1">
                 replay the IVR guidance here
               </a>
-              . Problems with audio? See your{' '}
-              <a onClick={restart} href="#2">
-                dialpad demo options here.
-              </a>
+              .
             </p>
 
             <p className="demo-wrapper__text">
@@ -143,7 +139,6 @@ Demo.propTypes = {
   optionsList: PropTypes.instanceOf(Array).isRequired,
   playTutorial: PropTypes.func.isRequired,
   replayTutorial: PropTypes.func.isRequired,
-  restart: PropTypes.func.isRequired,
 
   children: PropTypes.instanceOf(Array).isRequired,
 

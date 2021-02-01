@@ -1,10 +1,12 @@
 @import '../../scss/base.scss';
 
 .demo {
-  margin-top: $top;
+  margin-top: 65px;
   width: 100%;
   display: flex;
   justify-content: space-between;
+
+  overflow-y: hidden;
 
   &-wrapper {
     width: 500px;

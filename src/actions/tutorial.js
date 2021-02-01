@@ -26,16 +26,20 @@ export default function openTutorial() {
   state.tutorial.isOpen = !state.tutorial.isOpen;
 }
 
-export const repeatTutorial = () => {
-  setInterval(() => {
-    if (state.option < 8) {
-      state.isHovered = true;
-      state.option += 1;
-    } else {
-      state.option = 0;
-    }
-  }, 5000);
-};
+export function repeatTutorial() {
+  if (state.startInterval) {
+    setInterval(() => {
+      if (state.option < 8) {
+        state.isHovered = true;
+        state.option += 1;
+      } else {
+        state.option = 0;
+      }
+    }, 2000);
+
+    state.startInterval = false;
+  }
+}
 
 export function startTutorial() {
   setTimeout(() => {

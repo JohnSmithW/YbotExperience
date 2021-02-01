@@ -23,7 +23,7 @@ import PopUp from '../../components/PopUp/PopUp';
 import closePopUp from '../../actions/popUp';
 
 function Main() {
-  const [page, setPage] = useState(5);
+  const [page, setPage] = useState(0);
 
   return (
     <>
@@ -96,7 +96,6 @@ function Main() {
           <Demo
             onClick={(option) => {
               if (typeof option === 'number' && option !== 9) {
-                console.log(option);
                 startSMS(option);
               }
             }}
@@ -123,7 +122,7 @@ function Main() {
             }}
             replayTutorial={replayTutorial}
             chosenOption={state.option}
-            restart={repeatTutorial}
+            // restart={repeatTutorial}
             isHovered={state.isHovered}
           >
             {

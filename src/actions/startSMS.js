@@ -2,7 +2,7 @@ import state from '../store';
 import { popUp } from './popUp';
 import sendRequest from './sendRequest';
 
-export default async function startSMS() {
+export default async function startSMS(option) {
   if (!state.smsSent) {
     await sendRequest('/sendSms', 'POST', {
       name: state.info.name,
@@ -12,7 +12,7 @@ export default async function startSMS() {
       phone: state.details.country.code + state.details.phoneNumber,
       code: state.details.country.code,
       country: state.details.country.name,
-      type: state.option,
+      type: option,
     }).catch(() => popUp('server error', false));
 
     state.smsSent = true;

@@ -21,7 +21,7 @@ const state = store({
       { number: 2, text: 'Product' },
       { number: 3, text: 'Retail' },
       { number: 4, text: 'Hospitality' },
-      { number: 5, text: 'Financial Service' },
+      { number: 5, text: 'Financial Services' },
       { number: 6, text: 'Public Sector' },
       { number: 7, text: 'Energy' },
       { number: 8, text: 'Software' },
@@ -36,6 +36,7 @@ const state = store({
   isHovered: false,
   popUp: { isOpen: false, text: '', type: false },
   smsSent: false,
+  startInterval: true,
   optionsList: [
     {
       id: 0,
