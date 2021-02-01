@@ -1,6 +1,7 @@
 import state from '../store';
 import audio from '../data/tutorial.mp3';
 
+let interval = null;
 const tutorial = new Audio(audio);
 tutorial.volume = 0;
 
@@ -17,8 +18,10 @@ export function replayTutorial() {
 export function muteTutorial() {
   if (tutorial.volume === 0) {
     tutorial.volume = 1;
+    tutorial.muted = false;
   } else {
     tutorial.volume = 0;
+    tutorial.muted = true;
   }
 }
 
@@ -28,7 +31,7 @@ export default function openTutorial() {
 
 export function repeatTutorial() {
   if (state.startInterval) {
-    setInterval(() => {
+    interval = setInterval(() => {
       if (state.option < 8) {
         state.isHovered = true;
         state.option += 1;
@@ -39,6 +42,10 @@ export function repeatTutorial() {
 
     state.startInterval = false;
   }
+}
+
+export function stopTutorial() {
+  clearInterval(interval);
 }
 
 export function startTutorial() {

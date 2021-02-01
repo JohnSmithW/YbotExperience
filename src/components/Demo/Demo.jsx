@@ -16,6 +16,7 @@ export default function Demo({
   children,
   chosenOption,
   isHovered,
+  onMouseOver,
 }) {
   useEffect(() => {
     document.documentElement.scrollTop = 0;
@@ -97,6 +98,9 @@ export default function Demo({
                           onMouseMove={() => {
                             onMouseMove(option);
                           }}
+                          onMouseOver={() => {
+                            onMouseOver();
+                          }}
                           onMouseOut={() => {
                             onMouseOut();
                           }}
@@ -144,4 +148,5 @@ Demo.propTypes = {
 
   chosenOption: PropTypes.number,
   isHovered: PropTypes.bool.isRequired,
+  onMouseOver: PropTypes.func.isRequired,
 };
