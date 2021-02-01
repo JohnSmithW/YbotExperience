@@ -4,6 +4,8 @@ import sendRequest from './sendRequest';
 
 export default async function startSMS(option) {
   if (!state.smsSent) {
+    popUp(`ybot sent an SMS to ${state.details.phoneNumber}, check your device to continue`, true);
+    state.smsSent = true;
     await sendRequest('/sendSms', 'POST', {
       name: state.info.name,
       surname: state.info.lastName,
@@ -14,9 +16,6 @@ export default async function startSMS(option) {
       country: state.details.country.name,
       type: option,
     }).catch(() => popUp('server error', false));
-
-    state.smsSent = true;
-    popUp(`ybot sent an SMS to ${state.details.phoneNumber}, check your device to continue`, true);
 
     await setTimeout(() => {
       state.smsSent = false;
