@@ -42,7 +42,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function UserDetailsForm({ page, text, countryList, onClick, details, isEdit }) {
+export default function UserDetailsForm({ page, text, countryList, onClick, details, isEdit, onCountryChoose }) {
   const classes = useStyles();
   const [list, setList] = useState({ selected: countryList.selected, list: countryList.list });
   const [phoneNumber, setPhoneNumber] = useState(details.phoneNumber);
@@ -79,6 +79,11 @@ export default function UserDetailsForm({ page, text, countryList, onClick, deta
                   onFocus={() => {
                     setIsOpen(true);
                   }}
+                  onChange={(event) => {
+                    if (list.selected.id === 3) {
+                      setList({ ...list, selected: { ...list.selected, name: event.target.value } });
+                    }
+                  }}
                   value={list.selected.name}
                   className={classes.input}
                   id="standard-basic"
@@ -104,7 +109,7 @@ export default function UserDetailsForm({ page, text, countryList, onClick, deta
                             <div
                               onClick={() => {
                                 setList({ ...list, selected: { id, name, code } });
-
+                                onCountryChoose(id);
                                 setIsOpen(false);
                               }}
                               onKeyDown={(event) => {
@@ -242,4 +247,5 @@ UserDetailsForm.propTypes = {
   onClick: PropTypes.func.isRequired,
   details: PropTypes.instanceOf(Object),
   isEdit: PropTypes.bool.isRequired,
+  onCountryChoose: PropTypes.isRequired,
 };

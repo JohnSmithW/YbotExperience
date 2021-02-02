@@ -23,11 +23,11 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function PopUp({ isOpen, text, type, handleClose }) {
+export default function PopUp({ isOpen, text, type, handleClose, isHidden }) {
   const classes = useStyles();
 
   return (
-    <Snackbar open={isOpen} autoHideDuration={5000} onClose={handleClose}>
+    <Snackbar open={isOpen} autoHideDuration={isHidden ? 5000 : null} onClose={handleClose}>
       <Alert
         className={type ? classes.success : classes.fail}
         onClose={handleClose}
@@ -44,4 +44,5 @@ PopUp.propTypes = {
   text: PropTypes.string.isRequired,
   type: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
+  isHidden: PropTypes.bool.isRequired,
 };

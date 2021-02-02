@@ -21,7 +21,7 @@ import openTutorial, {
 import Tutorial from '../../components/Tutorial/Tutorial';
 import startSMS from '../../actions/startSMS';
 import PopUp from '../../components/PopUp/PopUp';
-import closePopUp from '../../actions/popUp';
+import closePopUp, { warningPopUp } from '../../actions/popUp';
 
 function Main() {
   const [page, setPage] = useState(0);
@@ -29,9 +29,22 @@ function Main() {
   return (
     <>
       <Theme theme={page === 5 ? 'theme_white' : 'theme_blue'} />
-
-      <PopUp isOpen={state.popUp.isOpen} text={state.popUp.text} type={state.popUp.type} handleClose={closePopUp} />
-
+      <PopUp
+        isOpen={state.popUp.isOpen && page === 5 && !state.isOther}
+        text={state.popUp.text}
+        type={state.popUp.type}
+        handleClose={closePopUp}
+        isHidden
+      />
+      (
+      <PopUp
+        isOpen={state.popUp.isOpen && state.isOther}
+        text={state.popUp.text}
+        type={state.popUp.type}
+        handleClose={() => {}}
+        isHidden={false}
+      />
+      )
       <Container>
         <Header isDemo={page === 5} onClick={replayTutorial} onMute={muteTutorial} />
         {page === 0 && (
@@ -89,6 +102,9 @@ function Main() {
             countryList={state.countryList}
             details={state.details}
             isEdit={state.isEdit}
+            onCountryChoose={(id) => {
+              warningPopUp(id);
+            }}
           />
         )}
 
@@ -127,7 +143,6 @@ function Main() {
             }}
             replayTutorial={replayTutorial}
             chosenOption={state.option}
-            // restart={repeatTutorial}
             isHovered={state.isHovered}
           >
             {

@@ -43,6 +43,8 @@ export default function Dialpad({ optionsList, onClick, onOptionClick, isOpen, c
             </div>
           ))}
         </div>
+
+        <span className="demo-dialpad-container__description">*Standard carrier rates may apply when sending SMS</span>
       </div>
     </div>
   );

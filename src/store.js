@@ -9,10 +9,11 @@ const state = store({
       { id: 0, name: 'United States of America', code: '+1' },
       { id: 1, name: 'Australia', code: '+61' },
       { id: 2, name: 'Hong Kong', code: '+852' },
-      { id: 3, name: 'United Kingdom', code: '+44' },
-      { id: 4, name: 'Other', code: '' },
+      // { id: 3, name: 'United Kingdom', code: '+44' },
+      { id: 3, name: 'Other', code: '' },
     ],
   },
+  isOther: false,
   isScrolled: false,
   tutorial: {
     isOpen: false,
